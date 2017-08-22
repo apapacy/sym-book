@@ -5,5 +5,9 @@ default:
             bootstrap: ~
     Behat\MinkExtension:
       goutte: ~
-      selenium2: ~
+      selenium2:
+        wd_host: http://127.0.0.1:4444/wd/hub
+        capabilities:
+          version: ''
       base_url: http://localhost:8000/app_dev.php
+      #default_session: 'selenium2'
