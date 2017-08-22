@@ -3,15 +3,23 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * User
  *
- * @ORM\Table(name="user")
+ * @ORM\Table(name="fos_user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User
+class User extends BaseUser
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+        // your own logic
+    }
+
     /**
      * @var int
      *
@@ -19,112 +27,15 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     */
-    private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255)
-     */
-    private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="bio", type="text")
-     */
-    private $bio;
-
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return User
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return User
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set bio
-     *
-     * @param string $bio
-     *
-     * @return User
-     */
-    public function setBio($bio)
-    {
-        $this->bio = $bio;
-
-        return $this;
-    }
-
-    /**
-     * Get bio
-     *
-     * @return string
-     */
-    public function getBio()
-    {
-        return $this->bio;
-    }
-
-
+       * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Group")
+       * @ORM\JoinTable(
+       *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+       *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
+       * )
+       */
+    protected $groups;
 
 }
