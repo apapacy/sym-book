@@ -10,6 +10,12 @@ class FeatureContext extends MinkContext
      */
     public function iPressMore()
     {
-        throw new PendingException();
+        $this->getSession()
+            // the browser
+            ->getPage()
+            // the DocumentElement
+            ->findButton("more")
+            // the NodeElement
+            ->press();
     }
 }
