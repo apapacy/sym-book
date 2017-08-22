@@ -19,3 +19,9 @@ Feature: about page
   Scenario: Visiting about page
   Given I am on "/about/123"
   Then I should see "mava is a web app"
+
+  @javascript
+  Scenario: showing details of an existing user in about page
+  Given I am on "/about/john"
+  When I press more
+  Then I should see "email"
